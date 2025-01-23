@@ -94,4 +94,4 @@ jobs:
           else
             echo "JAR file not found!"
             exit 1
-          fig
+          fi
