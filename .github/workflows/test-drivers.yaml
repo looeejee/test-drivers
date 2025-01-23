@@ -48,6 +48,11 @@ jobs:
           sparse-checkout: |
             python-driver
 
+      - name: Where is the file?
+        run: |
+          echo $PWD
+          ls -la
+
       # Runs a single command using the runners shell
       - name: Test Python Drivers
         uses: actions/setup-python@v5
