@@ -23,6 +23,14 @@ on:
         description: 'Neo4J Password'
         required: false
         default: ''
+      PYTHON_VERSION:
+        description: 'Python version to use'
+        required: false
+        default: '3.11'  # Default Python version
+      NEO4J_DRIVER_VERSION:
+        description: 'Neo4J Python Driver version to use'
+        required: false
+        default: '5.27.0'  # Default Python version
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -44,10 +52,11 @@ jobs:
       - name: Test Python Drivers
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-
+          python-version: ${{ github.event.inputs.PYTHON_VERSION }}  # Use the input for Python 
+      
+      # Install dependencies
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install python-dotenv neo4j==${{ github.event.inputs.NEO4J_DRIVER_VERSION }}
 
       - name: Run Tests
         env:
