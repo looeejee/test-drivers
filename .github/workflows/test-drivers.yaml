@@ -10,6 +10,19 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      NEO4J_URL:
+        description: 'Neo4J URL'
+        required: false
+        default: ''
+      NEO4J_USER:
+        description: 'Neo4J User'
+        required: false
+        default: ''
+      NEO4J_PASSWORD:
+        description: 'Neo4J Password'
+        required: false
+        default: ''
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,4 +45,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: python $PWD/python-driver/main.py
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        env:
+          NEO4J_URI: ${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}
+          NEO4J_USERNAME: ${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}
+          NEO4J_PASSWORD: ${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}
+        run: python $PWD/main.py
