@@ -85,10 +85,10 @@ jobs:
       - name: Load Environment Variables
         run: |
           echo "NEO4J_URI=${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}" >> $GITHUB_ENV
-          echo "${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}" >> $GITHUB_ENV
+          echo "NEO4J_USER=${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}" >> $GITHUB_ENV
           echo "NEO4J_PASSWORD=${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Build and Run
         run: |
           mvn clean package
-          java -jar target/your-jar-file.jar  # Replace with your actual jar file name
+          java -jar target/java-driver-1.0-SNAPSHOT.jar
