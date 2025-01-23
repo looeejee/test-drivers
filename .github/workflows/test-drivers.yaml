@@ -84,12 +84,30 @@ jobs:
 
       - name: Load Environment Variables
         run: |
-          echo "NEO4J_URI=${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}" >> $GITHUB_ENV
-          echo "NEO4J_USER=${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}" >> $GITHUB_ENV
-          echo "NEO4J_PASSWORD=${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}" >> $GITHUB_ENV
+          echo "NEO4J_URI=${{ github.event.inputs.NEO4J_URL }}" >> $GITHUB_ENV
+          echo "NEO4J_USER=${{ github.event.inputs.NEO4J_USER }}" >> $GITHUB_ENV
+          echo "NEO4J_PASSWORD=${{ github.event.inputs.NEO4J_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Set Default Values for Environment Variables
+        run: |
+          if [ -z "${NEO4J_URI}" ]; then
+            echo "NEO4J_URI=${{ secrets.NEO4J_URL }}" >> $GITHUB_ENV
+          fi
+          if [ -z "${NEO4J_USER}" ]; then
+            echo "NEO4J_USER=${{ secrets.NEO4J_USER }}" >> $GITHUB_ENV
+          fi
+          if [ -z "${NEO4J_PASSWORD}" ]; then
+            echo "NEO4J_PASSWORD=${{ secrets.NEO4J_PASSWORD }}" >> $GITHUB_ENV
+          fi
 
       - name: Build and Run
         run: |
+          run: |
           cd java-driver
           mvn clean package
-          java -jar target/java-driver-1.0-SNAPSHOT.jar
+          if [ -f target/java-driver-1.0-SNAPSHOT.jar ]; then
+            java -jar target/java-driver-1.0-SNAPSHOT.jar
+          else
+            echo "JAR file not found!"
+            exit 1
+          fi
