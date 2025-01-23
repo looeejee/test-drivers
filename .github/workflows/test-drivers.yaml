@@ -83,9 +83,9 @@ jobs:
 
       - name: Build and Run
         env:
-          NEO4J_URI: ${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}
-          NEO4J_USERNAME: ${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}
-          NEO4J_PASSWORD: ${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}
+          NEO4J_URI: ${{ secrets.NEO4J_URL }}
+          NEO4J_USERNAME: ${{ secrets.NEO4J_USER }}
+          NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
         run: |
           cd java-driver
           mvn clean package
@@ -94,4 +94,4 @@ jobs:
           else
             echo "JAR file not found!"
             exit 1
-          fi
+          fig
