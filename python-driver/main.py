@@ -26,6 +26,6 @@ if not URI or not USERNAME or not PASSWORD:
         raise ValueError("Neo4j connection details are not set. Please provide NEO4J_URI, NEO4J_USERNAME, and NEO4J_PASSWORD.")
 
 # Connect to Neo4j
-with GraphDatabase.driver(URI, auth=AUTH) as driver:
+with GraphDatabase.driver(URI, auth=(USERNAME, PASSWORD)) as driver:
     driver.verify_connectivity()
     print("Connection established.")
