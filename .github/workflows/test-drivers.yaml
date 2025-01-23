@@ -80,7 +80,6 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'  # Specify your Java version
-          
 
       - name: Load Environment Variables
         run: |
@@ -102,7 +101,6 @@ jobs:
 
       - name: Build and Run
         run: |
-          run: |
           cd java-driver
           mvn clean package
           if [ -f target/java-driver-1.0-SNAPSHOT.jar ]; then
