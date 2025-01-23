@@ -3,8 +3,8 @@ name: CI - Test Drivers
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
+  #push:
+    #branches: [ "main" ]
   #pull_request:
     #branches: [ "main" ]
 
@@ -81,25 +81,11 @@ jobs:
           distribution: 'corretto'
           java-version: '17'  # Specify your Java version
 
-      - name: Load Environment Variables
-        run: |
-          echo "NEO4J_URI=${{ github.event.inputs.NEO4J_URL }}" >> $GITHUB_ENV
-          echo "NEO4J_USER=${{ github.event.inputs.NEO4J_USER }}" >> $GITHUB_ENV
-          echo "NEO4J_PASSWORD=${{ github.event.inputs.NEO4J_PASSWORD }}" >> $GITHUB_ENV
-
-      - name: Set Default Values for Environment Variables
-        run: |
-          if [ -z "${NEO4J_URI}" ]; then
-            echo "NEO4J_URI=${{ secrets.NEO4J_URL }}" >> $GITHUB_ENV
-          fi
-          if [ -z "${NEO4J_USER}" ]; then
-            echo "NEO4J_USER=${{ secrets.NEO4J_USER }}" >> $GITHUB_ENV
-          fi
-          if [ -z "${NEO4J_PASSWORD}" ]; then
-            echo "NEO4J_PASSWORD=${{ secrets.NEO4J_PASSWORD }}" >> $GITHUB_ENV
-          fi
-
       - name: Build and Run
+        env:
+          NEO4J_URI: ${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}
+          NEO4J_USERNAME: ${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}
+          NEO4J_PASSWORD: ${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}
         run: |
           cd java-driver
           mvn clean package

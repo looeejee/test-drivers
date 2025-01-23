@@ -10,9 +10,16 @@ public class AppUtils {
         try (InputStream input = AppUtils.class.getResourceAsStream("/application.properties")) {
             if (input != null) {
                 properties.load(input);
-                System.setProperty("NEO4J_URI", properties.getProperty("NEO4J_URI"));
-                System.setProperty("NEO4J_USERNAME", properties.getProperty("NEO4J_USERNAME"));
-                System.setProperty("NEO4J_PASSWORD", properties.getProperty("NEO4J_PASSWORD"));
+                
+                // Load values from properties or environment variables
+                String neo4jUri = System.getenv("NEO4J_URL") != null ? System.getenv("NEO4J_URL") : properties.getProperty("NEO4J_URL");
+                String neo4jUsername = System.getenv("NEO4J_USERNAME") != null ? System.getenv("NEO4J_USERNAME") : properties.getProperty("NEO4J_USERNAME");
+                String neo4jPassword = System.getenv("NEO4J_PASSWORD") != null ? System.getenv("NEO4J_PASSWORD") : properties.getProperty("NEO4J_PASSWORD");
+
+                // Set system properties
+                System.setProperty("NEO4J_URL", neo4jUri);
+                System.setProperty("NEO4J_USERNAME", neo4jUsername);
+                System.setProperty("NEO4J_PASSWORD", neo4jPassword);
             } else {
                 throw new RuntimeException("application.properties file not found");
             }
@@ -22,7 +29,7 @@ public class AppUtils {
     }
 
     static String getNeo4jUri() {
-        return System.getProperty("NEO4J_URI");
+        return System.getProperty("NEO4J_URL");
     }
 
     static String getNeo4jUsername() {
@@ -31,5 +38,6 @@ public class AppUtils {
 
     static String getNeo4jPassword() {
         return System.getProperty("NEO4J_PASSWORD");
+   
     }
 }
