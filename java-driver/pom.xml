@@ -7,14 +7,16 @@
     <groupId>com.neo4test</groupId>
     <artifactId>java-driver</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Java Driver Example</name>
+    <description>A simple Java application using Neo4j Java Driver</description>
+
     <dependencies>
-        <!-- tag::driver[] -->
+        <!-- Neo4j Java Driver Dependency -->
         <dependency>
             <groupId>org.neo4j.driver</groupId>
             <artifactId>neo4j-java-driver</artifactId>
             <version>5.27.0</version>
         </dependency>
-        <!-- end::driver[] -->
     </dependencies>
 
     <build>
@@ -40,11 +42,10 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>    
+    </build>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-
 </project>

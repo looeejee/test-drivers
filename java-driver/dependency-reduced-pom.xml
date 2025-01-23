@@ -3,7 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.neo4test</groupId>
   <artifactId>java-driver</artifactId>
+  <name>Java Driver Example</name>
   <version>1.0-SNAPSHOT</version>
+  <description>A simple Java application using Neo4j Java Driver</description>
   <build>
     <plugins>
       <plugin>
