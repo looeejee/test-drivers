@@ -48,10 +48,10 @@ jobs:
           sparse-checkout: |
             python-driver
 
-      - name: Where is the file?
+      - name: CD to folder
         run: |
-          echo $PWD
-          ls -la
+          cd python-driver
+          ls -lah
 
       # Runs a single command using the runners shell
       - name: Test Python Drivers
