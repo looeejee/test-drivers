@@ -48,24 +48,19 @@ jobs:
           sparse-checkout: |
             python-driver
 
-      - name: CD to folder
-        run: |
-          cd python-driver
-          ls -lah
-
       # Runs a single command using the runners shell
       - name: Test Python Drivers
         uses: actions/setup-python@v5
         with:
           python-version: ${{ github.event.inputs.PYTHON_VERSION }}  # Use the input for Python 
-      
-      # Install dependencies
-      - name: Install dependencies
-        run: pip install python-dotenv neo4j==${{ github.event.inputs.NEO4J_DRIVER_VERSION }}
 
       - name: Run Tests
         env:
           NEO4J_URI: ${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}
           NEO4J_USERNAME: ${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}
           NEO4J_PASSWORD: ${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}
-        run: python $PWD/main.py
+        run: |
+          cd python-driver
+          ls -lah
+          pip install python-dotenv neo4j==${{ github.event.inputs.NEO4J_DRIVER_VERSION }}
+          python $PWD/main.py
