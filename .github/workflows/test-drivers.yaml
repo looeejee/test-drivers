@@ -27,10 +27,14 @@ on:
         description: 'Python version to use'
         required: false
         default: '3.11'  # Default Python version
-      NEO4J_DRIVER_VERSION:
+      NEO4J_PYTHON_DRIVER_VERSION:
         description: 'Neo4J Python Driver version to use'
         required: false
         default: '5.27.0'  # Default Python version
+      NEO4J_JAVA_DRIVER_VERSION:
+        description: 'Neo4J Java Driver version to use'
+        required: false
+        default: '5.27.0'  # Default Neo4j driver versio
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -62,7 +66,7 @@ jobs:
         run: |
           cd python-driver
           ls -lah
-          pip install python-dotenv neo4j==${{ github.event.inputs.NEO4J_DRIVER_VERSION }}
+          pip install python-dotenv neo4j==${{ github.event.inputs.NEO4J_PYTHON_DRIVER_VERSION }}
           python $PWD/main.py
     
   build-java:
@@ -88,7 +92,7 @@ jobs:
           NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
         run: |
           cd java-driver
-          mvn clean package
+          mvn clean package -Dneo4j.driver.version=${{ github.event.inputs.NEO4J_DRIVER_VERSION }}
           if [ -f target/java-driver-1.0-SNAPSHOT.jar ]; then
             java -jar target/java-driver-1.0-SNAPSHOT.jar
           else

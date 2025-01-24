@@ -10,12 +10,18 @@
     <name>Java Driver Example</name>
     <description>A simple Java application using Neo4j Java Driver</description>
 
+    <properties>
+    <neo4j.driver.version>${neo4j.driver.version}</neo4j.driver.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <!-- Neo4j Java Driver Dependency -->
         <dependency>
             <groupId>org.neo4j.driver</groupId>
             <artifactId>neo4j-java-driver</artifactId>
-            <version>5.27.0</version>
+            <version>${neo4j.driver.version}</version>
         </dependency>
     </dependencies>
 
@@ -52,9 +58,4 @@
         </plugins>
     </build>
 
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
 </project>
