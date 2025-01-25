@@ -136,5 +136,5 @@ jobs:
           NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
         run: |
           cd node-driver
-          npm install neo4j-driver@${github.event.inputs.NEO4J_JAVASCRIPT_DRIVER_VERSION}
+          npm install neo4j-driver@${{github.event.inputs.NEO4J_JAVASCRIPT_DRIVER_VERSION}}
           node index.js
