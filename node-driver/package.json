@@ -1,0 +1,14 @@
+{
+  "name": "neotest",
+  "version": "1.0.0",
+  "description": "Testing Javascript Driver Neo4j",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luigi B",
+  "license": "ISC",
+  "dependencies": {
+    "neo4j-driver": "^5.27.0"
+  }
+}
