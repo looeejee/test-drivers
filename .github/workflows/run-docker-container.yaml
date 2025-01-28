@@ -27,7 +27,7 @@ jobs:
         run: |
           docker pull ghcr.io/looeejee/test-drivers:v1.0
           docker run -e NEO4J_URL=${{ secrets.NEO4J_URL }} \
-                -e NEO4J_USER=${{ secrets.NEO4J_USER }} \
+                -e NEO4J_USERNAME=${{ secrets.NEO4J_USER }} \
                 -e NEO4J_PASSWORD=${{ secrets.NEO4J_PASSWORD }} \
                 ghcr.io/looeejee/test-drivers:v1.0
 
