@@ -28,6 +28,9 @@ jobs:
       - name: Run image
         run: |
           docker pull ghcr.io/looeejee/test-drivers:v1.0
-          docker run ghcr.io/looeejee/test-drivers:v1.0
+          docker run -e NEO$J_URL=${{ NEO4J_URL }} \
+                     -e NEO$J_USER=${{ NEO4J_USER}} \
+                     -e NEO4J_PASSWORD=${{ NEO4J_PASSWORD}} \
+                     ghcr.io/looeejee/test-drivers:v1.0
 
 
