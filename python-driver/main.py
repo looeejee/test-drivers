@@ -6,7 +6,7 @@ from neo4j import GraphDatabase
 load_status = dotenv.load_dotenv(".env")
 
 # Check if the required variables are set
-URI = os.getenv("NEO4J_URI")
+URI = os.getenv("NEO4J_URL")
 USERNAME = os.getenv("NEO4J_USERNAME")
 PASSWORD = os.getenv("NEO4J_PASSWORD")
 
