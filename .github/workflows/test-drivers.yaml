@@ -42,7 +42,7 @@ on:
       BUILD_DOCKER_IMAGE:
         description: "Set to true if you want to build a new Docker image"
         required: false
-        default: false
+        default: 'false'
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -73,7 +73,7 @@ jobs:
 
       - name: Run Tests
         env:
-          NEO4J_URI: ${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}
+          NEO4J_URL: ${{ github.event.inputs.NEO4J_URL || secrets.NEO4J_URL }}
           NEO4J_USERNAME: ${{ github.event.inputs.NEO4J_USER || secrets.NEO4J_USER }}
           NEO4J_PASSWORD: ${{ github.event.inputs.NEO4J_PASSWORD || secrets.NEO4J_PASSWORD }}
         run: |
@@ -155,7 +155,7 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-    if: ${{ github.event.input.BUILD_DOCKER_IMAGE = 'true'}}
+    if: ${{ github.event.input.BUILD_DOCKER_IMAGE == 'true'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
