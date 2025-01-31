@@ -219,11 +219,3 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
-
-  skip_build:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.BUILD_DOCKER_IMAGE != 'true' }}  # Job runs if input is not true
-    steps:
-      - name: Skip Docker image build
-        run: |
-          echo "Skipping Docker image build as BUILD_DOCKER_IMAGE is not set to true."
