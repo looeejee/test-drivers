@@ -39,6 +39,10 @@ on:
         description: "Neo$j Javascript Driver version to use"
         required: false
         default: '5.27.0'
+      BUILD_DOCKER_IMAGE:
+        description: "Set to true if you want to build a new Docker image"
+        required: false
+        default: false
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -142,9 +146,7 @@ jobs:
           npm install neo4j-driver@${{github.event.inputs.NEO4J_JAVASCRIPT_DRIVER_VERSION}}
           node index.js
 
-
   build-docker:
-
     runs-on: ubuntu-latest
     needs: [build-python,build-java,build-node]
     permissions:
@@ -153,7 +155,7 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-
+    if: ${{ github.event.input.BUILD_DOCKER_IMAGE = 'true'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -217,3 +219,11 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+  skip_build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.BUILD_DOCKER_IMAGE != 'true' }}  # Job runs if input is not true
+    steps:
+      - name: Skip Docker image build
+        run: |
+          echo "Skipping Docker image build as BUILD_DOCKER_IMAGE is not set to true."
