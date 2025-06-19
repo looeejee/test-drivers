@@ -1,0 +1,7 @@
+{
+    "total_nodes_created": 10,
+    "total_relationships_created": 5,
+    "created_nodes_summary_ms": 9,
+    "created_rels_summary_ms": 19,
+    "update_nodes_summary_ms": 1
+}
